@@ -1,8 +1,12 @@
 $(document).ready(function() {
   
+  var newListItem, listEmpty = true, theList = $('#the-list');
+  $(theList).sortable();
+  $(theList).disableSelection();
+  
   function loadList() {
     if ( localStorage.getItem('toDoList') ) {
-      theList.innerHTML = localStorage.getItem('toDoList');
+      theList.html(localStorage.getItem('toDoList')); 
       var listItemsNum = $('#the-list li').length + 1;
       if ( listItemsNum > 2 ) {
         $('#clearAll').css('display', 'inline-block');
@@ -12,14 +16,13 @@ $(document).ready(function() {
   
   loadList();
   
-  var newListItem, listEmpty = true, theList = $('#the-list');
-  $(theList).sortable();
-  $(theList).disableSelection();
-  
   document.getElementById('clearAll').addEventListener('click', function(e) {
     theList.children().remove();
     e.preventDefault();
     localStorage.clear();
+    $('#newListItem').val('');
+    $('#newListItem').focus();
+    listEmpty = true;
     $('#clearAll').css('display', 'none');
   });
   
@@ -63,11 +66,15 @@ $(document).ready(function() {
   theList.on('click', 'span.ui-icon-close', function() {
     $(this).parent().remove();
     var listItemsNum = $('#the-list li').length + 1;
-    if ( listItemsNum < 2 ) {
-      listEmpty = true;
+    if ( listItemsNum < 3 ) {
+      if ( listItemsNum < 2 ) {
+        localStorage.clear();
+        listEmpty = true;
+      } else {
+        localStorage.setItem('toDoList', theList.html());
+      }
       $('#clearAll').css('display', 'none');
     }
-    localStorage.setItem('toDoList', theList.html());
   });
   
 });
