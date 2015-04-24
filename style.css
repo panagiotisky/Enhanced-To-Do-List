@@ -1,0 +1,86 @@
+body {
+  padding: 0;
+  margin: 0;
+  padding: 1em;
+}
+
+section#listContainer {
+  width: 35em;
+  margin: auto;
+  padding: 1em;
+  font-family: 'Noto Sans', sans-serif;
+  font-size: 1em;
+  background: #F5FCFF;
+}
+
+#form1 {
+  width: 29em;
+  margin: 1em auto 0;
+}
+
+input[type=text] {
+  padding: 0.5em;
+  width: 28em;
+}
+
+input[type=button] {
+  font-size: 1em;
+  padding: 0.4em 1em;
+  background: #93B3E5;
+  color: #fff;
+  padding: 0.4em 1em;
+  border-radius: 2px;
+  -webkit-border-radius: 2px;
+  -moz-border-radius: 2px;
+  border: none;
+}
+
+section#list-title {
+  text-align: center;
+  font-size: 1.1em;
+}
+
+section#list-title span {
+  text-decoration: underline;
+}
+
+ul#the-list {
+  list-style: none;
+  padding: 0;
+}
+
+ul#the-list li {
+  background: #93B3E5;
+  padding: 1em 2em 1em 1em;
+  color: #fff;
+  margin-top: 0.2em;
+  border-radius: 2px;
+  -webkit-border-radius: 2px;
+  -moz-border-radius: 2px;
+  word-wrap: break-word;
+  cursor: default;
+}
+
+ul#the-list li:first-child {
+  margin-top: 0;
+}
+
+a {
+  background: #93B3E5;
+  color: #fff;
+  padding: 0.3em 0.7em;
+  border-radius: 2px;
+  -webkit-border-radius: 2px;
+  -moz-border-radius: 2px;
+}
+
+#clearAll, #save {
+  display: none;
+}
+
+span.ui-icon-close {
+  cursor: pointer;
+  display: none;
+  float: right;
+  background-repeat: no-repeat;
+}
