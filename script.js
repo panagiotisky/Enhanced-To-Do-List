@@ -1,33 +1,28 @@
 $(document).ready(function() {
   
-  var theList = document.getElementById('the-list');
-  document.getElementById('save').addEventListener('click', function(e) {
-    e.preventDefault();
-    localStorage.setItem('toDoList', theList.html());
-  });
-  document.getElementById('clearAll').addEventListener('click', function(e) {
-    e.preventDefault();
-    localStorage.clear();
-    location.reload();
-  });
-
   function loadList() {
     if ( localStorage.getItem('toDoList') ) {
       theList.innerHTML = localStorage.getItem('toDoList');
+      var listItemsNum = $('#the-list li').length + 1;
+      if ( listItemsNum > 2 ) {
+        $('#clearAll').css('display', 'inline-block');
+      }
     }
-  }
+  }// Check if there is a saved list and load it
   
   loadList();
-  
-  var listItemsNum = $('#the-list li').length + 1;
-  if ( listItemsNum > 1 ) {
-    $('#clearAll, #save').css('display', 'inline-block');
-  }
-  
   
   var newListItem, listEmpty = true, theList = $('#the-list');
   $(theList).sortable();
   $(theList).disableSelection();
+  
+  document.getElementById('clearAll').addEventListener('click', function(e) {
+    theList.children().remove();
+    e.preventDefault();
+    localStorage.clear();
+    $('#clearAll').css('display', 'none');
+  });
+  
   $('#addListItem').on('click', function(e) {
     e.preventDefault();
     var listItemValue = $('#newListItem').val();
@@ -40,13 +35,14 @@ $(document).ready(function() {
     }
     
     var listItemsNum = $('#the-list li').length + 1;
-    if ( listItemsNum > 0 ) {
-      $('#clearAll, #save').css('display', 'inline-block');
+    if ( listItemsNum > 1 ) {
+      $('#clearAll').css('display', 'inline-block');
     }
     
     theList.append(newListItem);
     $('#newListItem').val('');
     $('#newListItem').focus();
+    localStorage.setItem('toDoList', theList.html());
   });
   
   $('input#newListItem').on('keypress', function(e) {
@@ -67,10 +63,11 @@ $(document).ready(function() {
   theList.on('click', 'span.ui-icon-close', function() {
     $(this).parent().remove();
     var listItemsNum = $('#the-list li').length + 1;
-    if ( listItemsNum === 1 ) {
+    if ( listItemsNum < 2 ) {
       listEmpty = true;
-      $('#clearAll, #save').css('display', 'none');
+      $('#clearAll').css('display', 'none');
     }
+    localStorage.setItem('toDoList', theList.html());
   });
   
 });
